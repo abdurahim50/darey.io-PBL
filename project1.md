@@ -19,6 +19,7 @@ LAMP stands for Linux, Apache, MySQL, and PHP. Together, they provide a proven s
 
 PHP is designed for efficiency. It makes programming easier—and a bit more fun—by allowing you to write new code, hit refresh, and immediately see the resulting changes without the need for compiling. If you prefer, you can swap out PHP in favor of Perl or the increasingly popular Python language.
 
+
 ### LAMP architecture
 LAMP has a classic layered architecture, with Linux at the lowest level. The next layer is Apache and MySQL, followed by PHP. Although PHP is nominally at the top or presentation layer, the PHP component sits inside Apache.
 
