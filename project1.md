@@ -38,12 +38,36 @@ What exactly is Apache?
 The Apache web server is among the most popular web servers in the world. It’s well documented, has an active community of users, and has been in wide use for much of the history of the web, which makes it a great default choice for hosting a website.
 
 Install Apache using Ubuntu’s package manager [‘apt’](https://en.wikipedia.org/wiki/APT_(software)):
-
->#update a list of packages in package manager
+```
+#update a list of packages in package manager
 sudo apt update ``
-
- >#run apache2 package installation
+#run apache2 package installation
 sudo apt install apache2
+```
+output:
+```
+ubuntu@ip-172-31-12-5:~$ sudo systemctl status apache2
+● apache2.service - The Apache HTTP Server
+     Loaded: loaded (/lib/systemd/system/apache2.service; enabled; vendor prese>
+     Active: active (running) since Tue 2021-09-28 22:41:09 UTC; 3min 48s ago
+       Docs: https://httpd.apache.org/docs/2.4/
+    Process: 419 ExecStart=/usr/sbin/apachectl start (code=exited, status=0/SUC>
+   Main PID: 508 (apache2)
+      Tasks: 6 (limit: 1160)
+     Memory: 19.1M
+     CGroup: /system.slice/apache2.service
+             ├─508 /usr/sbin/apache2 -k start
+             ├─530 /usr/sbin/apache2 -k start
+             ├─531 /usr/sbin/apache2 -k start
+             ├─532 /usr/sbin/apache2 -k start
+             ├─541 /usr/sbin/apache2 -k start
+             └─548 /usr/sbin/apache2 -k start
+
+Sep 28 22:41:09 ip-172-31-12-5 systemd[1]: Starting The Apache HTTP Server...
+Sep 28 22:41:09 ip-172-31-12-5 systemd[1]: Started The Apache HTTP Server.
+lines 1-18/18 (END)...skipping...
+```
+
 
 To verify that apache2 is running as a Service in our OS, use following command
 
@@ -165,6 +189,191 @@ For increased security, it’s best to have dedicated user accounts with less ex
 Note: At the time of this writing, the native MySQL PHP library <span style ="color:red">mysqlnd</span> doesn’t support <span style ="color:red">caching_sha2_authentication</span>, the default authentication method for MySQL 8. For that reason, when creating database users for PHP applications on MySQL 8, you’ll need to make sure they’re configured to use <span style = "color:red">mysql_native_password</span> instead.
 
 Your MySQL server is now installed and secured. Next, we will install PHP, the final component in the LAMP stack.
+
+
+**ouput**:
+```
+ubuntu@ip-172-31-12-5:~$ sudo systemctl status mysql
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: enabled)
+     Active: active (running) since Tue 2021-09-28 22:41:14 UTC; 13min ago
+    Process: 447 ExecStartPre=/usr/share/mysql/mysql-systemd-start pre (code=exited, status=0/SUCCESS)
+   Main PID: 588 (mysqld)
+     Status: "Server is operational"
+      Tasks: 37 (limit: 1160)
+     Memory: 406.8M
+     CGroup: /system.slice/mysql.service
+             └─588 /usr/sbin/mysqld
+
+Sep 28 22:41:09 ip-172-31-12-5 systemd[1]: Starting MySQL Community Server...
+Sep 28 22:41:14 ip-172-31-12-5 systemd[1]: Started MySQL Community Server.
+```
+
+## STEP 3 — INSTALLING PHP
+You have Apache installed to serve your content and MySQL installed to store and manage your data. PHP is the component of our setup that will process code to display dynamic content to the end user. In addition to the php package, you’ll need php-mysql, a PHP module that allows PHP to communicate with MySQL-based databases. You’ll also need libapache2-mod-php to enable Apache to handle PHP files. Core PHP packages will automatically be installed as dependencies.
+
+To install these 3 packages at once, run:
+
+```sudo apt install php libapache2-mod-php php-mysql```
+
+Once the installation is finished, you can run the following command to confirm your PHP version:
+
+```php -v```
+
+```
+PHP 7.4.3 (cli) (built: Aug 13 2021 05:39:12) ( NTS )
+Copyright (c) The PHP Group
+Zend Engine v3.4.0, Copyright (c) Zend Technologies
+    with Zend OPcache v7.4.3, Copyright (c), by Zend Technologies
+```
+Linux (Ubuntu)
+Apache HTTP Server
+MySQL
+PHP
+To test your setup with a PHP script, it’s best to set up a proper Apache Virtual Host to hold your website’s files and folders. Virtual host allows you to have multiple websites located on a single machine and users of the websites will not even notice it.
+
+
+
+
+## STEP 4 — CREATING A VIRTUAL HOST FOR YOUR WEBSITE USING APACHE
+In this project, you will set up a domain called projectlamp, but you can replace this with any domain of your choice.
+
+Apache on Ubuntu 20.04 has one server block enabled by default that is configured to serve documents from the /var/www/html directory.
+We will leave this configuration as is and will add our own directory next next to the default one.
+
+Create the directory for projectlamp using ‘mkdir’ command as follows:
+
+```sudo mkdir /var/www/projectlamp```
+
+Next, assign ownership of the directory with your current system user:
+
+ ```sudo chown -R $USER:$USER /var/www/projectlamp```
+ 
+Then, create and open a new configuration file in Apache’s sites-available directory using your preferred command-line editor. Here, we’ll be using vi or vim (They are the same by the way):
+
+```sudo vi /etc/apache2/sites-available/projectlamp.conf```
+This will create a new blank file. Paste in the following bare-bones configuration by hitting on i on the keyboard to enter the insert mode, and paste the text:
+
+```
+<VirtualHost *:80>
+    ServerName projectlamp
+    ServerAlias www.projectlamp 
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/projectlamp
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+
+To save and close the file, simply follow the steps below:
+
+Hit the esc button on the keyboard
+Type :
+Type wq. w for write and q for quit
+Hit ENTER to save the file
+You can use the ls command to show the new file in the sites-available directory
+
+```sudo ls /etc/apache2/sites-available```
+
+You will see something like this;
+
+```000-default.conf  default-ssl.conf  projectlamp.conf```
+
+With this VirtualHost configuration, we’re telling Apache to serve projectlamp using /var/www/projectlampl as its web root directory. If you would like to test Apache without a domain name, you can remove or comment out the options ServerName and ServerAlias by adding a # character in the beginning of each option’s lines. Adding the # character there will tell the program to skip processing the instructions on those lines.
+
+You can now use a2ensite command to enable the new virtual host:
+
+```sudo a2ensite projectlamp```
+
+You might want to disable the default website that comes installed with Apache. This is required if you’re not using a custom domain name, because in this case Apache’s default configuration would overwrite your virtual host. To disable Apache’s default website use a2dissite command , type:
+
+```sudo a2dissite 000-default```
+
+To make sure your configuration file doesn’t contain syntax errors, run:
+
+```sudo apache2ctl configtest```
+
+Finally, reload Apache so these changes take effect:
+
+```sudo systemctl reload apache2```
+
+Your new website is now active, but the web root /var/www/projectlamp is still empty. Create an index.html file in that location so that we can test that the virtual host works as expected:
+
+```sudo echo 'Hello LAMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectlamp/index.html```
+
+Now go to your browser and try to open your website URL using IP address:
+
+```http://<Public-IP-Address>:80```
+
+If you see the text from ‘echo’ command you wrote to index.html file, then it means your Apache virtual host is working as expected.
+In the output you will see your server’s public hostname (DNS name) and public IP address. You can also access your website in your browser by public DNS name, not only by IP – try it out, the result must be the same (port is optional)
+
+```http://<Public-DNS-Name>:80```
+
+You can leave this file in place as a temporary landing page for your application until you set up an index.php file to replace it. Once you do that, remember to remove or rename the index.html file from your document root, as it would take precedence over an index.php file by default.
+
+
+##  STEP 5 — ENABLE PHP ON THE WEBSITE
+
+With the default DirectoryIndex settings on Apache, a file named index.html will always take precedence over an index.php file. This is useful for setting up maintenance pages in PHP applications, by creating a temporary index.html file containing an informative message to visitors. Because this page will take precedence over the index.php page, it will then become the landing page for the application. Once maintenance is over, the index.html is renamed or removed from the document root, bringing back the regular application page.
+
+In case you want to change this behavior, you’ll need to edit the /etc/apache2/mods-enabled/dir.conf file and change the order in which the index.php file is listed within the DirectoryIndex directive:
+
+```sudo vim /etc/apache2/mods-enabled/dir.conf```
+
+```
+<IfModule mod_dir.c>
+        #Change this:
+        #DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm
+        #To this:
+        DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
+</IfModule>
+```
+
+After saving and closing the file, you will need to reload Apache so the changes take effect:
+
+```sudo systemctl reload apache2```
+
+Finally, we will create a PHP script to test that PHP is correctly installed and configured on your server.
+
+Now that you have a custom location to host your website’s files and folders, we’ll create a PHP test script to confirm that Apache is able to handle and process requests for PHP files.
+
+Create a new file named index.php inside your custom web root folder:
+
+```vim /var/www/projectlamp/index.php```
+
+This will open a blank file. Add the following text, which is valid PHP code, inside the file:
+
+```
+<?php
+phpinfo();
+```
+
+When you are finished, save and close the file, refresh the page and you will see a page similar to this:
+
+
+
+
+
+This page provides information about your server from the perspective of PHP. It is useful for debugging and to ensure that your settings are being applied correctly.
+
+If you can see this page in your browser, then your PHP installation is working as expected.
+
+After checking the relevant information about your PHP server through that page, it’s best to remove the file you created as it contains sensitive information about your PHP environment -and your Ubuntu server. You can use rm to do so:
+
+```sudo rm /var/www/projectlamp/index.php```
+You can always recreate this page if you need to access the information again later.
+
+Credit: This guide was inspired by Digital Ocean
+
+Congratulations! You have finished your very first REAL LIFE PROJECT by deploying a LAMP stack website in AWS Cloud!
+
+
+
+
+
+
+
 
 
 
