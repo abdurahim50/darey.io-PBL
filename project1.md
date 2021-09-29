@@ -351,6 +351,10 @@ phpinfo();
 
 When you are finished, save and close the file, refresh the page and you will see a page similar to this:
 
+![Screenshot (79)](https://user-images.githubusercontent.com/45608947/135212487-c4145c89-f648-4029-a144-e6611f505725.png)
+![image](https://user-images.githubusercontent.com/45608947/135212776-205dfa97-800b-4a6e-af83-6c91f42cfe7e.png)
+
+
 
 
 
