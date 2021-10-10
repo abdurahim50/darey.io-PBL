@@ -80,6 +80,9 @@ Again, use apt to acquire and install this software:
 ```
 sudo apt install mysql-server
 ```
+**output:**
+![Screenshot (85)](https://user-images.githubusercontent.com/45608947/136701316-1c857882-1f7a-492a-8ed6-d1e8b1cbc134.png)
+
 When prompted, confirm installation by typing Y, and then ENTER.
 
 When the installation is finished, it’s recommended that you run a security script that comes pre-installed with MySQL. This script will remove some insecure default settings and lock down access to your database system. Start the interactive script by running:
@@ -87,6 +90,9 @@ When the installation is finished, it’s recommended that you run a security sc
 ```
 sudo mysql_secure_installation
 ```
+**output:**
+![Screenshot (86)](https://user-images.githubusercontent.com/45608947/136702251-de1213f5-5c1b-4685-a474-52107d67539d.png)
+
 This will ask if you want to configure the VALIDATE PASSWORD PLUGIN.
 
 ```
@@ -147,6 +153,10 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 mysql> 
 ```
+
+**Output:**
+![Screenshot (87)](https://user-images.githubusercontent.com/45608947/136702412-80ba7fb8-4d6d-4a1b-8b36-cb10743d71e4.png)
+
 To exit the MySQL console, type:
 
 ```
@@ -175,6 +185,11 @@ To install these 2 packages at once, run:
 ```
 sudo apt install php-fpm php-mysql
 ```
+**Output:**
+![Screenshot (88)](https://user-images.githubusercontent.com/45608947/136702885-17c9c9af-98f8-4694-947b-f01a9f4c4134.png)
+
+
+
 When prompted, type **Y** and press **ENTER** to confirm installation.
 
 You now have your PHP components installed. Next, you will configure Nginx to use them.
@@ -192,6 +207,8 @@ Create the root web directory for your_domain as follows:
 ```
 sudo mkdir /var/www/projectLEMP
 ```
+
+![Screenshot (89)](https://user-images.githubusercontent.com/45608947/136703258-2dc756ec-dcb9-4745-abde-b0410b3d9df4.png)
 
 Next, assign ownership of the directory with the $USER environment variable, which will reference your current system user:
 
@@ -281,6 +298,10 @@ Now go to your browser and try to open your website URL using IP address:
 ```
 http://<Public-IP-Address>:80
 ```
+**Output:**
+![Screenshot (90)](https://user-images.githubusercontent.com/45608947/136703875-2d4a6393-187c-41dd-930b-4676b3224da6.png)
+
+
 If you see the text from ‘echo’ command you wrote to index.html file, then it means your Nginx site is working as expected.
 In the output you will see your server’s public hostname (DNS name) and public IP address. You can also access your website in your browser by public DNS name, not only by IP – try it out, the result must be the same (port is optional)
 
@@ -312,10 +333,11 @@ Type or paste the following lines into the new file. This is valid PHP code that
 phpinfo();
 ```
 You can now access this page in your web browser by visiting the domain name or public IP address you’ve set up in your Nginx configuration file, followed by /info.php:
-
+```
 http://`server_domain_or_IP`/info.php
+```
 You will see a web page containing detailed information about your server:
-
+![Screenshot (91)](https://user-images.githubusercontent.com/45608947/136704447-72b6e27a-8b4a-47ae-bb59-57c0be4d3b23.png)
 
 
 After checking the relevant information about your PHP server through that page, it’s best to remove the file you created as it contains sensitive information about your PHP environment and your Ubuntu server. You can use rm to remove that file:
@@ -364,11 +386,33 @@ Now exit the MySQL shell with:
 ```
 mysql> exit
 ```
+**Output:**
+![Screenshot (92)](https://user-images.githubusercontent.com/45608947/136704984-04b89620-78cd-4520-8af8-c5cdb0c01c31.png)
+
 You can test if the new user has the proper permissions by logging in to the MySQL console again, this time using the custom user credentials:
 
 ```
 mysql -u example_user -p
 ```
+```
+Output:
+ubuntu@ip-172-31-23-116:~$ mysql -u example_user -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.26-0ubuntu0.20.04.3 (Ubuntu)
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql>
+```
+
 Notice the -p flag in this command, which will prompt you for the password used when creating the example_user user. After logging in to the MySQL console, confirm that you have access to the example_database database:
 
 ```
@@ -407,18 +451,11 @@ mysql>  SELECT * FROM example_database.todo_list;
 ```
 You’ll see the following output:
 
-```
+
 Output
-+---------+--------------------------+
-| item_id | content                  |
-+---------+--------------------------+
-|       1 | My first important item  |
-|       2 | My second important item |
-|       3 | My third important item  |
-|       4 | and this one more thing  |
-+---------+--------------------------+
-4 rows in set (0.000 sec)
-```
+![Screenshot (93)](https://user-images.githubusercontent.com/45608947/136705581-a36fa8c4-783c-441d-b8f1-48b035f6e2b5.png)
+
+
 After confirming that you have valid data in your test table, you can exit the MySQL console:
 
 ```
@@ -462,7 +499,7 @@ http://<Public_domain_or_IP>/todo_list.php
 ```
 You should see a page like this, showing the content you’ve inserted in your test table:
 
-![image](https://user-images.githubusercontent.com/45608947/135775331-a3639b07-4bf2-489a-8f4e-778d38329a04.png)
+![Screenshot (94)](https://user-images.githubusercontent.com/45608947/136705736-46a3814c-b8e9-4e96-8df7-9e5297dcd903.png)
 
 
 
