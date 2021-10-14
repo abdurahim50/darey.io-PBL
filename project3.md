@@ -54,6 +54,9 @@ Install Node.js with the command below
 ```
 sudo apt-get install -y nodejs
 ```
+**Output**
+![Screenshot (97)](https://user-images.githubusercontent.com/45608947/137354372-7820b15e-b2bf-4448-9684-024c82f9cd50.png)
+
 Note: The command above installs both nodejs and npm. NPM is a package manager for Node like apt for Ubuntu, it is used to install Node modules & packages and to manage dependency conflicts.
 
 Verify the node installation with the command below
@@ -66,6 +69,9 @@ Verify the node installation with the command below
 ```
 npm -v 
 ```
+**Output**
+![Screenshot (98)](https://user-images.githubusercontent.com/45608947/137354501-3c8786e6-2b7b-420b-98e0-2fab7a050a1d.png)
+
 Application Code Setup
 
 Create a new directory for your To-Do project:
@@ -86,6 +92,8 @@ Next, you will use the command npm init to initialise your project, so that a ne
 ```
 npm init
 ```
+**Output**
+![Screenshot (100)](https://user-images.githubusercontent.com/45608947/137354695-786895bf-606c-422d-8138-c8f382e91780.png)
 
 
 Run the command ls to confirm that you have package.json file created.
@@ -105,6 +113,9 @@ To use express, install it using npm:
 ```
 npm install express
 ```
+**Output**
+![Screenshot (97)](https://user-images.githubusercontent.com/45608947/137355005-811782b2-5dff-47d4-a19f-9e44c737aaa2.png)
+
 Now create a file index.js with the command below
 
 ```
