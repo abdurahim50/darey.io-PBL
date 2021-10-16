@@ -39,6 +39,10 @@ sudo apt upgrade
 ```
 sudo apt install -y nodejs
 ```
+**Outpu**
+
+![Screenshot (112)](https://user-images.githubusercontent.com/45608947/137601347-5334a452-d802-4c95-a66a-aadea402c553.png)
+
 
 ## Step 2: Install MongoDB
 
@@ -352,6 +356,12 @@ Start the server by running this command:
 node server.js
 ```
 
+**Output**
+
+![Screenshot (113)](https://user-images.githubusercontent.com/45608947/137603702-d5a3d29c-aa20-4999-bd57-baa7386b6cbe.png)
+
+
+
 The server is now up and running, we can connect it via port 3300. You can launch a separate Putty or SSH console to test what curl command returns locally.
 
 ```
@@ -377,6 +387,11 @@ Run **curl -s http://169.254.169.254/latest/meta-data/public-ipv4** for Public I
 This is how your Web Book Register Application will look like in browser:
 
 ![image](https://user-images.githubusercontent.com/45608947/136900821-3a48bd60-8b5c-4362-819e-6ea39d1f2e48.png)
+
+**Output**
+
+![Screenshot (114)](https://user-images.githubusercontent.com/45608947/137604010-df6fc697-a6de-4774-b6d4-90587c83d635.png)
+
 
 Congratulations!
 You have now completed all ‘PBL Progressive’ projects and are ready to move on to more complex and fun ‘PBL Professional’ project
