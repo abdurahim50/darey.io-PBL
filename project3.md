@@ -92,8 +92,6 @@ Next, you will use the command npm init to initialise your project, so that a ne
 ```
 npm init
 ```
-**Output**
-![Screenshot (100)](https://user-images.githubusercontent.com/45608947/137354695-786895bf-606c-422d-8138-c8f382e91780.png)
 
 
 Run the command ls to confirm that you have package.json file created.
@@ -169,6 +167,9 @@ node index.js
 ```
 If every thing goes well, you should see Server running on port 5000 in your terminal.
 
+![Screenshot (102)](https://user-images.githubusercontent.com/45608947/137567209-606fc4d7-cb06-437b-93d0-57486702e92b.png)
+
+
 Now we need to open this port in EC2 Security Groups. Refer to Project 1 Step 1 – Installing the Nginx Web Server. There we created an inbound rule to open TCP port 80, you need to do the same for port 5000, like this:
 
 
@@ -176,9 +177,13 @@ Open up your browser and try to access your server’s Public IP or Public DNS n
 ```
 http://<PublicIP-or-PublicDNS>:5000
 ```
+
 Quick reminder how to get your server’s Public IP and public DNS name:
 1) You can find it in your AWS web console in EC2 details
 2) Run curl -s http://169.254.169.254/latest/meta-data/public-ipv4 for Public IP address or curl -s http://169.254.169.254/latest/meta-data/public-hostname for Public DNS name.
+
+![image](https://user-images.githubusercontent.com/45608947/137567152-1d8a0b32-33cf-4209-87b4-f5129d20349e.png)
+
 
 Routes
 There are three actions that our To-Do application needs to be able to do:
@@ -231,6 +236,9 @@ router.delete('/todos/:id', (req, res, next) => {
 
 module.exports = router;
 ```
+
+![Screenshot (103)](https://user-images.githubusercontent.com/45608947/137568294-eefe32db-a5d6-4d81-af15-ef106ecdecfa.png)
+
 
 Moving forward let create Models directory.
 
@@ -337,6 +345,9 @@ Todo.findOneAndDelete({"_id": req.params.id})
 module.exports = router;
 ```
 
+![Screenshot (103)](https://user-images.githubusercontent.com/45608947/137569713-f1d24f5d-cf14-43be-9850-1d019ddd822c.png)
+
+
 The next piece of our application will be the **MongoDB Database**
 
 ## MONGODB DATABASE
@@ -380,6 +391,7 @@ DB = 'mongodb+srv://<username>:<password>@<network-address>/<dbname>?retryWrites
 Ensure to update <username>, <password>, <network-address> and <database> according to your setup
 
 Here is how to get your connection string
+  
   ![image](https://user-images.githubusercontent.com/45608947/136711258-6c2fcb84-b40f-4166-9e4c-b488bc4c4ee0.png)
 
 ![image](https://user-images.githubusercontent.com/45608947/136711269-63f6b904-2c5a-472b-a4d1-7dc8f7a9c6e1.png)
@@ -447,6 +459,10 @@ Start your server using the command:
 ```
   node index.js
 ```
+  **Output**
+  
+  ![Screenshot (104)](https://user-images.githubusercontent.com/45608947/137572328-22b86afe-fa77-4874-b05e-07a31d581075.png)
+
   
 You shall see a message ‘Database connected successfully’, if so – we have our backend configured. Now we are going to test it.
 
@@ -481,6 +497,12 @@ Display a list of tasks – HTTP GET request
 Add a new task to the list – HTTP POST request
 Delete an existing task from the list – HTTP DELETE request
 We have successfully created our Backend, now let go create the Frontend.
+  
+  **Output**
+  ![Screenshot (105)](https://user-images.githubusercontent.com/45608947/137590965-15f69649-7578-4018-b8a2-3b3550d1fd0c.png)
+
+  ![Screenshot (106)](https://user-images.githubusercontent.com/45608947/137591160-c49cffe7-d9cf-4b8b-befb-b0cd0bac0875.png)
+
   
   
 
@@ -524,9 +546,10 @@ npm install nodemon --save-dev
 
 ```
   
-  
+  ![image](https://user-images.githubusercontent.com/45608947/137592962-5fba737c-9100-4068-816e-3b650b01d9f4.png)
+
  
-Configure Proxy in package.json
+**Configure Proxy in package.json**
   
 1. Change directory to ‘client’
   
@@ -551,7 +574,16 @@ npm run dev
 Your app should open and start running on localhost:3000
 
 **Important nite:** In order to be able to access the application from the Internet you have to open TCP port 3000 on EC2 by adding a new Security Group rule. You already know how to do it.
+  
+**Output**
+  
+  ![Screenshot (107)](https://user-images.githubusercontent.com/45608947/137592921-f43412ca-c1cf-41b3-857b-8dd746783836.png)
+  
+  ![Screenshot (108)](https://user-images.githubusercontent.com/45608947/137593390-b22f4ead-b1a4-4ee2-9394-047c823cb535.png)
 
+
+  
+  
 **Creating your React Components**
   
 One of the advantages of react is that it makes use of components, which are reusable and also makes code modular. For our Todo app, there will be two stateful components and one stateless component.
@@ -956,6 +988,13 @@ When you are in the Todo directory run:
 ```
 npm run dev
 ```
+  **Output**
+  
+  ![Screenshot (110)](https://user-images.githubusercontent.com/45608947/137596591-97e12a7a-6aed-4a59-b01f-012fb3472de7.png)
+  
+  
+![Screenshot (111)](https://user-images.githubusercontent.com/45608947/137596638-648907c0-3085-4f0d-9601-8ddb07c23caa.png)
+
   
   
 Assuming no errors when saving all these files, our To-Do app should be ready and fully functional with the functionality discussed earlier: creating a task, deleting a task and viewing all your tasks.
