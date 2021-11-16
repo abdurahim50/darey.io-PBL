@@ -141,7 +141,6 @@ To do so, lets edit the crontab file with the following command:
 ```
 crontab -e
 ```
-
 Add following line:
 
 ```
