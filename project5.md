@@ -59,11 +59,19 @@ Server B name - `mysql client`
 
 2. On mysql server Linux Server install MySQL Server software.
 Interesting fact: MySQL is an open-source relational database management system. Its name is a combination of "My", the name of co-founder Michael Widenius’s daughter, and "SQL", the abbreviation for Structured Query Language.
+**screenshot*
+![Screenshot (141)](https://user-images.githubusercontent.com/45608947/149849366-045ffa03-9b5e-4617-8094-d7c8d57c42c4.png)
+
 
 3. On mysql client Linux Server install MySQL Client software.
+**screenshot*
+![Screenshot (142)](https://user-images.githubusercontent.com/45608947/149850163-d72bd8b9-dcd2-4174-9cd4-c3c234695817.png)
+
 
 4. By default, both of your EC2 virtual servers are located in the same local virtual network, so they can communicate to each other using local IP addresses. Use mysql server's local IP address to connect from mysql client. MySQL server uses TCP port 3306 by default, so you will have to open it by creating a new entry in ‘Inbound rules’ in ‘mysql server’ Security Groups. For extra security, do not allow all IP addresses to reach your ‘mysql server’ – allow access only to the specific local IP address of your ‘mysql client’.
 
+**Screenshot
+![Screenshot (143)](https://user-images.githubusercontent.com/45608947/149850734-93d54148-1cf0-4af7-8e2e-b2c6feb21b90.png)
 
 
 5. You might need to configure MySQL server to allow connections from remote hosts.
@@ -73,8 +81,15 @@ sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf
 Replace ‘127.0.0.1’ to ‘0.0.0.0’ like this:
 https://staging-learning.darey.io/wp-content/uploads/2021/06/mysql_bind.png
 
+**Screenshot**
+![Screenshot (144)](https://user-images.githubusercontent.com/45608947/149852521-a3a152be-4a33-4335-9551-e61c4a2e899c.png)
+
 
 6. From mysql client Linux Server connect remotely to mysql server Database Engine without using SSH. You must use the mysql utility to perform this action.
+
+**Screenshot**
+![Screenshot (145)](https://user-images.githubusercontent.com/45608947/149854837-de2e2f21-c7da-44c5-bc13-0deb793d3f88.png)
+
 
 7. Check that you have successfully connected to a remote MySQL server and can perform SQL queries:
 
@@ -84,4 +99,8 @@ Show databases;
 
 If you see an output similar to the below image, then you have successfully completed this project – you have deloyed a fully functional MySQL Client-Server set up.
 Well Done! You are getting there gradually. You can further play around with this set up and practice in creating/dropping databases & tables and inserting/selecting records to and from them.
+
+**Screenshot**
+![Screenshot (146)](https://user-images.githubusercontent.com/45608947/149855551-da793f5f-6454-4422-afd3-308c5b3105ab.png)
+
 
