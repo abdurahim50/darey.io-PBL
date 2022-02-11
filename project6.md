@@ -50,8 +50,8 @@ Let us get started!
 1. Launch an EC2 instance that will serve as "Web Server". Create 3 volumes in the same AZ as your Web Server EC2, each of 10 GiB.
 Learn How to Add EBS Volume to an EC2 instance [here](https://www.youtube.com/watch?v=HPXnXkBzIHw)
   
-  ![image](https://user-images.githubusercontent.com/45608947/138531516-f4fdcccd-c32c-45f1-a4d1-b8d52dfcd3a4.png)
-  
+  ![image](https://user-images.githubusercontent.com/45608947/138531516-f4fdcccd-c32c-45f1-a4d1-b8d52dfcd3a4.png)  
+
 2. Attach all three volumes one by one to your Web Server EC2 instance
   
 ![image](https://user-images.githubusercontent.com/45608947/138531587-e48c7854-acd3-4c79-8e77-da3c511443c3.png)
@@ -63,6 +63,10 @@ Learn How to Add EBS Volume to an EC2 instance [here](https://www.youtube.com/wa
   
   ![image](https://user-images.githubusercontent.com/45608947/138531866-6cbd6155-e7a7-424e-876b-2a31905ef61e.png)
   
+  **OUTPUT**
+  ![Screenshot (149)](https://user-images.githubusercontent.com/45608947/153641056-2004c5b5-60ce-4930-8ba1-b7c6e6ca595e.png)
+
+   
 5. Use df -h command to see all mounts and free space on your server
 
 6. Use gdisk utility to create a single partition on each of the 3 disks
@@ -109,6 +113,10 @@ Now,  your changes has been configured succesfuly, exit out of the gdisk console
 
   ![image](https://user-images.githubusercontent.com/45608947/138532142-60f930aa-42c7-4ad6-aa38-2ade9a2343b3.png)
   
+    **OUTPUT**
+  ![Screenshot (150)](https://user-images.githubusercontent.com/45608947/153647700-654cbcdc-c6cb-49f4-92c1-a96d1548a661.png)
+
+  
 8. Install lvm2 package using
   ```
   sudo yum install lvm2
@@ -119,6 +127,12 @@ Now,  your changes has been configured succesfuly, exit out of the gdisk console
   ```
   
 Note: Previously, in Ubuntu we used apt command to install packages, in RedHat/CentOS a different package manager is used, so we shall use yum command instead.
+  
+  
+  
+  **OUTPUT**
+  ![Screenshot (151)](https://user-images.githubusercontent.com/45608947/153648488-615878fd-ec80-44f0-a841-b27904a75b8f.png)
+
 
 9. Use pvcreate utility to mark each of 3 disks as physical volumes (PVs) to be used by LVM
 ```
@@ -129,6 +143,10 @@ sudo pvcreate /dev/xvdh1
 10. Verify that your Physical volume has been created successfully by running sudo pvs
   
 ![image](https://user-images.githubusercontent.com/45608947/138532419-4ca21057-237f-4258-a992-986e7f0c47a7.png)
+  
+  **OUTPUT**
+  ![Screenshot (152)](https://user-images.githubusercontent.com/45608947/153648839-c1625678-30a7-4528-8be0-a8187eebed47.png)
+
 
 11. Use vgcreate utility to add all 3 PVs to a volume group (VG). Name the VG webdata-vg
 ```
