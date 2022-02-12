@@ -157,6 +157,11 @@ sudo vgcreate webdata-vg /dev/xvdh1 /dev/xvdg1 /dev/xvdf1
   
   ![image](https://user-images.githubusercontent.com/45608947/138532477-145ce96b-7b40-402d-8a25-76efd6e73d7e.png)
   
+  **OUTPUT**
+  
+  ![Screenshot (153)](https://user-images.githubusercontent.com/45608947/153704219-48bcc810-685d-4899-9584-3be0bb16da66.png)
+
+  
 13. Use lvcreate utility to create 2 logical volumes. apps-lv (Use half of the PV size), and logs-lv Use the remaining space of the PV size. NOTE: apps-lv will be used to store data for the Website while, logs-lv will be used to store data for logs.
 ```  
 sudo lvcreate -n apps-lv -L 14G webdata-vg
@@ -166,6 +171,11 @@ sudo lvcreate -n logs-lv -L 14G webdata-vg
 14.Verify that your Logical Volume has been created successfully by running sudo lvs
   
   ![image](https://user-images.githubusercontent.com/45608947/138532612-c2393971-aa1e-46d9-97c7-874bb84f4984.png)
+  
+  **OUTPUT**
+  
+  ![Screenshot (154)](https://user-images.githubusercontent.com/45608947/153704408-1631c802-0b7f-493c-90cc-b03e15eff8ac.png)
+
 
 15. Verify the entire setup
 
@@ -175,6 +185,11 @@ sudo lsblk
 ```
   
 ![image](https://user-images.githubusercontent.com/45608947/138532748-aed1aa9d-8d84-4e99-8e39-e131949a9bea.png)
+  
+  **OUTPUT**
+  
+  ![Screenshot (155)](https://user-images.githubusercontent.com/45608947/153704504-998fe81b-230b-4c52-a9ba-330c92870dfa.png)
+
 
 16. Use mkfs.ext4 to format the logical volumes with ext4 filesystem
 
@@ -218,7 +233,13 @@ sudo mount /dev/webdata-vg/logs-lv /var/log
 sudo rsync -av /home/recovery/logs/. /var/log
 ```
   
+  **OUTPUT**  19 -22
+  
+  ![Screenshot (157)](https://user-images.githubusercontent.com/45608947/153704948-9ebe3949-4f34-44dd-8d4c-2f0b91800cc0.png)
+
+  
 23. Update **/etc/fstab** file so that the mount configuration will persist after restart of the server.
+  
   
 **Click on the next button** To update the /etc/fstab file
   
@@ -252,6 +273,11 @@ Update **/etc/fstab** in this format using your own UUID and rememeber to remove
 2. Verify your setup by running **df -h**, output must look like this:
   
   ![image](https://user-images.githubusercontent.com/45608947/138533641-31c5e16e-2447-439a-a5f3-68f5ca00e613.png)
+  
+  **OUTPUT**
+
+  ![Screenshot (159)](https://user-images.githubusercontent.com/45608947/153706100-9e216419-d66b-4c80-9eb4-b2587c137dbf.png)
+
 
 
 **Step 2 — Prepare the Database Server**
