@@ -63,6 +63,10 @@ sudo systemctl enable nfs-server.service
 sudo systemctl status nfs-server.service
 ```
 
+**OUTPUT**
+
+![image](https://user-images.githubusercontent.com/45608947/158251345-3a1d75fb-1f8c-4c1b-b870-f0ad9f634256.png)
+
 5. Export the mounts for webservers’ subnet cidr to connect as clients. For simplicity, you will install your all three Web Servers inside the same subnet, but in production set up you would probably want to separate each tier inside its own subnet for higher level of security.
 To check your subnet cidr – open your EC2 details in AWS web console and locate ‘Networking’ tab and open a Subnet link:
 
@@ -81,6 +85,10 @@ sudo chmod -R 777 /mnt/opt
 
 sudo systemctl restart nfs-server.service
 ```
+**output**
+
+![image](https://user-images.githubusercontent.com/45608947/158252146-e0f4ff6f-a0b3-454b-8d91-304caf1b6466.png)
+
 
 Configure access to NFS for clients within the same subnet (example of Subnet CIDR – 172.31.32.0/20 ):
 
@@ -96,6 +104,11 @@ Esc + :wq!
 sudo exportfs -arv
 
 ```
+
+**output**
+
+![image](https://user-images.githubusercontent.com/45608947/158253535-429a0705-f497-42b5-aa91-a60da22b86db.png)
+
 6. Check which port is used by NFS and open it using Security Groups (add new Inbound Rule)
 
 ```
@@ -144,6 +157,10 @@ sudo yum install nfs-utils nfs4-acl-tools -y
 sudo mkdir /var/www
 sudo mount -t nfs -o rw,nosuid <NFS-Server-Private-IP-Address>:/mnt/apps /var/www
 ```
+**output**
+
+![image](https://user-images.githubusercontent.com/45608947/158257129-54875d90-c268-43a6-b19c-a9bb18d924c8.png)
+
 
 4. Verify that NFS was mounted successfully by running df -h. Make sure that the changes will persist on Web Server after reboot:
 
